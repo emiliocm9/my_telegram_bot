@@ -59,9 +59,9 @@ class Bot
       reply(bot,
             message.chat.id,
             "This bot will help to know any stock information you want on #{Date.today.strftime('%a, %-d %b of %Y:')}")
-            reply(bot,
-              message.chat.id,
-              "Please type the STOCK symbol you want to search")
+      reply(bot,
+            message.chat.id,
+            'Please type the STOCK symbol you want to search')
 
     elsif message.text != '/start' && message.text != '/stop'
       # Provides stats according to the country if given a location.
