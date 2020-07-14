@@ -62,38 +62,20 @@ class Bot
             reply(bot,
               message.chat.id,
               "Please type the STOCK symbol you want to search")
-      reply(bot, message.chat.id, search('/start'))
-      reply(bot, message.chat.id, 'Please select one of the following options', main_menu)
 
-    elsif message.text.nil?
+    elsif message.text != '/start' && message.text != '/stop'
       # Provides stats according to the country if given a location.
-      location = Geocoder.search([message.location.latitude, message.location.longitude])
-      reply(bot, message.chat.id, search('location', location))
-
-    elsif search('countries').include? message.text.downcase
       reply(bot, message.chat.id, search(message.text))
+
     else
       reply(bot, message.chat.id, "I can't help you, please select from the following options:", main_menu)
     end
   end
 
   # Connects with the Covid API Class
-  def search(command, location = nil)
+  def search(command)
     covid_api = CovidApi.new
-
-    case command
-    when '/start'
-      covid_api.get_information
-
-    when 'countries'
-      covid_api.countries.join(', ')
-
-    when 'location'
-      covid_api.country(covid_api.get_slug_country(location.first.country)) if location
-
-    else
-      covid_api.country(command)
-    end
+    covid_api.get_information(command)
   end
 
   # Provides the user with the current options
