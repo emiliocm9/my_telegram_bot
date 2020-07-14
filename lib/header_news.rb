@@ -14,4 +14,4 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
 end
 
 response.code
-p response.body
+response.body

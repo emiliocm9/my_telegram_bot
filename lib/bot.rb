@@ -58,7 +58,10 @@ class Bot
       reply(bot, message.chat.id, "Hello, #{message.from.first_name}.")
       reply(bot,
             message.chat.id,
-            "These are the latest news around the World for #{Date.today.strftime('%a, %-d %b of %Y:')}")
+            "This bot will help to know any stock information you want on #{Date.today.strftime('%a, %-d %b of %Y:')}")
+            reply(bot,
+              message.chat.id,
+              "Please type the STOCK symbol you want to search")
       reply(bot, message.chat.id, search('/start'))
       reply(bot, message.chat.id, 'Please select one of the following options', main_menu)
 
@@ -77,15 +80,10 @@ class Bot
   # Connects with the Covid API Class
   def search(command, location = nil)
     covid_api = CovidApi.new
-    newsapi = News.new('bb3ba6f0ed7f48689708122da76ecdcc')
 
     case command
     when '/start'
-      newsapi.get_top_headlines(q: 'bitcoin',
-        sources: 'bbc-news,the-verge',
-        category: 'business',
-        language: 'en',
-        country: 'us')
+      covid_api.get_information
 
     when 'countries'
       covid_api.countries.join(', ')
