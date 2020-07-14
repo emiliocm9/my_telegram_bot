@@ -3,7 +3,7 @@ require 'net/http'
 require 'json'
 require 'uri'
 
-class CovidApi
+class KeyStats
   attr_reader :uri, :b
   attr_accessor :symbol
 

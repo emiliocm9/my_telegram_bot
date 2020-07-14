@@ -74,8 +74,8 @@ class Bot
 
   # Connects with the Covid API Class
   def search(commands)
-    covid_api = CovidApi.new
-    covid_api.get_information(commands)
+    stats = KeyStats.new
+    stats.get_information(commands)
   end
 
   # Provides the user with the current options
