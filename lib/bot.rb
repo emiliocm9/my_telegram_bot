@@ -1,28 +1,36 @@
 require 'telegram/bot'
 require 'geocoder'
+require 'open-uri'
 require_relative 'motive.rb'
+require 'news-api'
 
 class Bot
+  attr_reader :commands, :token
 
   def initialize
-    token = '1175332363:AAFsytcuXCfYSGpWPpcYRlWJ7uOPEvbWxZE'
-      begin
-        start_telegram_api
-      rescue Telegram::Bot::Exceptions::ResponseError => e
-        puts "Bot not connecting properly. Presenting: #{e}"
-      end
+    @token = '1175332363:AAFsytcuXCfYSGpWPpcYRlWJ7uOPEvbWxZE'
+    begin
+      start_telegram_api
+    rescue Telegram::Bot::Exceptions::ResponseError => e
+      puts "Bot not connecting properly. Presenting: #{e}"
+    end
   end
 
+  # Replies messages to the user
   def reply(bot, chat_id, content, markup = nil)
     bot.api.send_message(chat_id: chat_id, text: content, reply_markup: markup)
   end
 
+  private
+
+  # Starts the bot input.
   def start_telegram_api
     Telegram::Bot::Client.run(token) do |bot|
       listen(bot)
     end
   end
 
+  # Listens for user input
   def listen(bot)
     bot.listen do |message|
       case message
@@ -44,34 +52,72 @@ class Bot
       end
     end
   end
-  
-    Telegram::Bot::Client.run(token) do |bot|
-      bot.listen do |message|
-        case message.text
-        when '/start'
-          bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name} , welcome to Newsbot created by Emilio Contreras, where you can find the most interesting news, depending on where you are and what you want to read. Please select your country")
-        
-        when '/stop'
-  
-          bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}", date: message.date)
-        when '/motivate'
-          values = Motivate.new
-          value = values.select_random
-          bot.api.send_message(chat_id: message.chat.id, text: "#{value['text']}", date: message.date)
-        else bot.api.send_message(chat_id: message.chat.id, text: "Invalid entry, #{message.from.first_name}, you need
-           to use  /start,  /stop , /motivate or /joke")
-        end
-      end
 
+  def listen_message_text(bot, message)
+    if message.text == '/start'
+      reply(bot, message.chat.id, "Hello, #{message.from.first_name}.")
+      reply(bot,
+            message.chat.id,
+            "These are the latest news around the World for #{Date.today.strftime('%a, %-d %b of %Y:')}")
+      reply(bot, message.chat.id, search('/start'))
+      reply(bot, message.chat.id, 'Please select one of the following options', main_menu)
+
+    elsif message.text.nil?
+      # Provides stats according to the country if given a location.
+      location = Geocoder.search([message.location.latitude, message.location.longitude])
+      reply(bot, message.chat.id, search('location', location))
+
+    elsif search('countries').include? message.text.downcase
+      reply(bot, message.chat.id, search(message.text))
+    else
+      reply(bot, message.chat.id, "I can't help you, please select from the following options:", main_menu)
+    end
+  end
+
+  # Connects with the Covid API Class
+  def search(command, location = nil)
+    covid_api = CovidApi.new
+    newsapi = News.new('bb3ba6f0ed7f48689708122da76ecdcc')
+
+    case command
+    when '/start'
+      newsapi.get_top_headlines(q: 'bitcoin',
+        sources: 'bbc-news,the-verge',
+        category: 'business',
+        language: 'en',
+        country: 'us')
+
+    when 'countries'
+      covid_api.countries.join(', ')
+
+    when 'location'
+      covid_api.country(covid_api.get_slug_country(location.first.country)) if location
+
+    else
+      covid_api.country(command)
+    end
+  end
+
+  # Provides the user with the current options
   def main_menu
     kb = [
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Latest news around the world', url: 'https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en'),
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'How are the numbers in my location?',
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Breaking News-World', url: 'https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Breaking News-My Location',
                                                      callback_data: 'location'),
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Select a specific country', callback_data: 'countries')
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Select a Specific Country', callback_data: 'countries')
     ]
     Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
   end
-end
 
+  # Prompts the user to provide its location
+  def inline_menu
+    kb = [
+      Telegram::Bot::Types::KeyboardButton.new(
+        text: 'Provide my Location',
+        request_location: true,
+        one_time_keyboard: true
+      )
+    ]
+    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
+  end
 end
