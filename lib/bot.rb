@@ -5,10 +5,10 @@ require_relative 'motive.rb'
 require 'news-api'
 
 class Bot
-  attr_reader :commands, :token
+  attr_reader :commands, :token, :uri
 
   def initialize
-    @token = '1175332363:AAFsytcuXCfYSGpWPpcYRlWJ7uOPEvbWxZE'
+    @token = '1311446527:AAH2ffDev6-BCNjIwanP0IrsWxtR45qztGc'
     begin
       start_telegram_api
     rescue Telegram::Bot::Exceptions::ResponseError => e
@@ -65,17 +65,17 @@ class Bot
 
     elsif message.text != '/start' && message.text != '/stop'
       # Provides stats according to the country if given a location.
+      message.text = message.text.to_s
       reply(bot, message.chat.id, search(message.text))
-
     else
       reply(bot, message.chat.id, "I can't help you, please select from the following options:", main_menu)
     end
   end
 
   # Connects with the Covid API Class
-  def search(command)
+  def search(commands)
     covid_api = CovidApi.new
-    covid_api.get_information(command)
+    covid_api.get_information(commands)
   end
 
   # Provides the user with the current options

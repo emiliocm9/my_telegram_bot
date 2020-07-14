@@ -1,7 +1,6 @@
-require 'telegram/bot'
 require 'dotenv'
 require_relative '../lib/bot.rb'
 
-#Dotenv.load
+Dotenv.load
 
 Bot.new

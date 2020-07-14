@@ -5,9 +5,12 @@ require 'uri'
 
 class CovidApi
   attr_reader :uri, :b
+  attr_accessor :symbol
+
   def initialize
     @b = b
     @uri = uri
+    @symbol = symbol
   end
 
   def get_information(symbol)
@@ -23,15 +26,11 @@ class CovidApi
     http.request(request)
     end
 
-    a = response.body.tr('\{[]}', '').split('\n').map {|item| item.chomp.tr('\\"', '')}.map {|item| item.split(/\n/).each {|i| i.delete!(' ').gsub!(':', ' : ')}}.flatten
-    b = a.each {|i| puts i.capitalize}
+    response.body
+    #a = response.body.tr('\{[]}', '').split('\n').map {|item| item.chomp.tr('\\"', '')}.map {|item| item.split(/\n/).each {|i| i.delete!(' ').gsub!(':', ' : ')}}.flatten
+    #b
   end
-
-  #def align_info
-    #get_information
-  
-  #end
 end
 
-# apitest = CovidApi.new
-# apitest.get_information('TSLA')
+ #apitest = CovidApi.new
+ #apitest.get_information('TSLA')
