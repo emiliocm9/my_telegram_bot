@@ -14,7 +14,8 @@ class CovidApi
   end
 
   def get_information(symbol)
-    uri = URI.parse("https://financialmodelingprep.com/api/v3/profile/#{symbol}?apikey=991a6bc8a2bdcd65a5cbeb076b133b05")
+    urilink = "https://financialmodelingprep.com/api/v3/profile/#{symbol}?apikey=991a6bc8a2bdcd65a5cbeb076b133b05"
+    uri = URI.parse(urilink)
     request = Net::HTTP::Get.new(uri)
     request['Upgrade-Insecure-Requests'] = '1'
 
@@ -27,10 +28,5 @@ class CovidApi
     end
 
     response.body
-    # a = response.body.tr('\{[]}', '').split('\n').map {|item| item.chomp.tr('\\"', '')}.map {|item| item.split(/\n/).each {|i| i.delete!(' ').gsub!(':', ' : ')}}.flatten
-    # b
   end
 end
-
-# apitest = CovidApi.new
-# apitest.get_information('TSLA')
