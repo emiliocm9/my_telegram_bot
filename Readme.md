@@ -36,7 +36,7 @@ If you want to download the source code and be able to use its logic to create a
 
 ### Start
   This command will give you the starting instructions. You just need to type 
-  > start
+  > /start
 
 ### 'Company Summary [symbol]'
 
@@ -60,7 +60,7 @@ If you want to download the source code and be able to use its logic to create a
    - Description
    - Industry
    - Sector
-   - CEO-
+   - CEO
    - Website
    - Image
 
