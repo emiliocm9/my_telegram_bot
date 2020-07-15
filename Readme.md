@@ -37,6 +37,7 @@ If you want to download the source code and be able to use its logic to create a
 ### Start
   This command will give you the starting instructions. You just need to type 
   > /start
+  ![Start Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/Start%20Screenshot.png)
 
 ### 'Company Summary [symbol]'
 
@@ -44,7 +45,7 @@ If you want to download the source code and be able to use its logic to create a
   You just need to type 'Company Summary' before the Stock Symbol of the Company you want to search for. E.g., if want to get a Company Summary of Netflix, I should send the next message.
   > Company Summary NFLX
 
-  ![PROJECT: first instruction](https://github.com/Zubenna/tic-tac-toe-project/blob/development/readme_game_instructions/img/game_running.png)
+  ![Company Summary Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/CompanySummaryScreenshot.png)
 
   This command will give you the next information.
    - Price
@@ -71,7 +72,7 @@ If you want to download the source code and be able to use its logic to create a
   You just need to type 'Financial Statements' before the Stock Symbol of the Company you want to search for. E.g., if want to get a Financial Statement of Tesla, I should send the next message.
   > Financial Statements TSLA
 
-  ![PROJECT: first instruction](https://github.com/Zubenna/tic-tac-toe-project/blob/development/readme_game_instructions/img/game_running.png)
+  ![Financial Statements Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/FinancialStatementsScreenshot.png)
 
   This command will give you the next information.
    - Filling Date
