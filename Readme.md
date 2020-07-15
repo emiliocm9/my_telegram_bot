@@ -5,11 +5,11 @@ Financial Modeling Prep is a new concept that informs you about stock markets in
 This bot will provide the financial statements quarterly, and a company summary for every company in the stock market, using a the Telegram Application. Run the [Stock-Bot](https://t.me/Market_StockPrice_Bot)
 
 ## Table of Contents
-- [Getting Started](## Getting Started)
-- [Commands](## Comands)
-- [Built with](## Built with)
-- [Authors](## Authors)
-- [Contribuiting](## Contribuiting)
+- [Getting Started](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#getting-started)
+- [Commands](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#commands)
+- [Built with](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#built-with)
+- [Authors](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#authors)
+- [Contribuiting](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#-contributing)
 
 ## Getting Started
 You can easily chat directly with the bot by searching @Market_StockPrice_Bot on Telegram. Or you can click on this [link](https://t.me/Market_StockPrice_Bot).
