@@ -27,11 +27,11 @@ class KeyStats
       http.request(request)
     end
 
-    ab = (response.body).tr('{}[]', '')
-    if ab == " "
-      return 'Error: please type the STOCK symbol again.'
+    ab = response.body.tr('{}[]', '')
+    if ab == ' '
+      'Error: please type the STOCK symbol again.'
     else
-      return ab
+      ab
     end
   end
 end

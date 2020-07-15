@@ -36,14 +36,17 @@ class Bot
     bot.listen do |message|
       case message
       when Telegram::Bot::Types::Message
-          listen_message_text(bot, message)
+        listen_message_text(bot, message)
       when Telegram::Bot::Types::CallbackQuery
         case message.data
         when 'Company Summary'
-          reply(bot, message.from.id, 'Data for a company such as 52 week high, 52 week low, market capitalization, and key stats to understand a company finance.')
-          reply(bot, message.from.id, 'Please type the stock symbol you want to search. E.g., TSLA, MSFT, NFLX, etc.')
+          reply(bot, message.from.id, 'Data for a company such as 52 week high,
+             52 week low, market capitalization, and key stats to understand a company finance.')
+          reply(bot, message.from.id, 'Please type the stock symbol you want
+             to search. E.g., TSLA, MSFT, NFLX, etc.')
         when 'Financial Statements'
-          reply(bot, message.from.id, 'Access to financial statement reports, income statement, balance sheet statement and cash flow statement quarterly.')
+          reply(bot, message.from.id, 'Access to financial statement reports, income statement,
+             balance sheet statement and cash flow statement quarterly.')
           reply(bot, message.from.id, 'Please type the stock symbol you want to search. E.g., TSLA, MSFT, NFLX, etc.')
 
         else
@@ -55,25 +58,19 @@ class Bot
 
   def listen_message_text(bot, message)
     if message.text == '/start'
-      reply(bot, message.chat.id, "Hello, #{message.from.first_name}.")
-      reply(bot,
-        message.chat.id,
-          "This bot will give you the Financial DATA of every company in the Market and cashflow statement quarterly.\nToday: #{Date.today.strftime('%a, %-d %b of %Y:')}")
-      reply(bot,
-        message.chat.id,
-          "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements' to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
-      reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
+      start_bot(bot, message)
     elsif message.text != '/start' && message.text != '/stop'
-      if (message.text).include?('Company Summary')
-        comp = (message.text).split(' ').to_a[-1]
+      if message.text.include?('Company Summary')
+        comp = message.text.split(' ').to_a[-1]
         reply(bot, message.chat.id, search(comp))
-      elsif (message.text).include?('Financial Statement')
-        compa = (message.text).split(' ').to_a[-1]
+      elsif message.text.include?('Financial Statement')
+        compa = message.text.split(' ').to_a[-1]
         reply(bot, message.chat.id, finance_first(compa))
       else
         reply(bot,
-          message.chat.id,
-            "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements' to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
+              message.chat.id,
+              "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements'
+            to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
         reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
       end
     else
@@ -92,6 +89,14 @@ class Bot
     finance.get_finance(commands)
   end
 
+  def start_bot(bot, message)
+    reply(bot, message.chat.id, "Hello, #{message.from.first_name}.")
+    reply(bot, message.chat.id, "This bot will give you the Financial DATA of every company
+    in the Market and cashflow statement quarterly.\nToday: #{Date.today.strftime('%a, %-d %b of %Y:')}")
+    reply(bot, message.chat.id, "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements'
+    to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
+    reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
+  end
 
   # Provides the user with the current options
   def main_menu
