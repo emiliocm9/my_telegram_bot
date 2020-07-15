@@ -1,0 +1,5 @@
+class FinStatus
+
+  
+  
+end
