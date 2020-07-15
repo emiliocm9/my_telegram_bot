@@ -3,7 +3,6 @@ require 'geocoder'
 require 'open-uri'
 require_relative 'motive.rb'
 require_relative 'financial.rb'
-require 'news-api'
 
 class Bot
   attr_reader :commands, :token, :uri
