@@ -2,6 +2,7 @@ require 'telegram/bot'
 require 'geocoder'
 require 'open-uri'
 require_relative 'motive.rb'
+require_relative 'financial.rb'
 require 'news-api'
 
 class Bot
@@ -35,16 +36,15 @@ class Bot
     bot.listen do |message|
       case message
       when Telegram::Bot::Types::Message
-        listen_message_text(bot, message)
-
+          listen_message_text(bot, message)
       when Telegram::Bot::Types::CallbackQuery
         case message.data
-        when 'location'
-          reply(bot, message.from.id, 'Please provide me your location...', inline_menu)
-
-        when 'countries'
-          reply(bot, message.from.id, 'Please type one of the following countries to get information:')
-          reply(bot, message.from.id, search('countries'))
+        when 'Company Summary'
+          reply(bot, message.from.id, 'Data for a company such as 52 week high, 52 week low, market capitalization, and key stats to understand a company finance.')
+          reply(bot, message.from.id, 'Please type the stock symbol you want to search. E.g., TSLA, MSFT, NFLX, etc.')
+        when 'Financial Statements'
+          reply(bot, message.from.id, 'Access to financial statement reports, income statement, balance sheet statement and cash flow statement quarterly.')
+          reply(bot, message.from.id, 'Please type the stock symbol you want to search. E.g., TSLA, MSFT, NFLX, etc.')
 
         else
           reply(bot, message.from.id, "I don't know how to help you with this")
@@ -57,47 +57,47 @@ class Bot
     if message.text == '/start'
       reply(bot, message.chat.id, "Hello, #{message.from.first_name}.")
       reply(bot,
-            message.chat.id,
-            "This bot will help to know any stock information you want on #{Date.today.strftime('%a, %-d %b of %Y:')}")
+        message.chat.id,
+          "This bot will give you the Financial DATA of every company in the Market and cashflow statement quarterly.\nToday: #{Date.today.strftime('%a, %-d %b of %Y:')}")
       reply(bot,
-            message.chat.id,
-            'Please type the STOCK symbol you want to search')
-
+        message.chat.id,
+          "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements' to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
+      reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
     elsif message.text != '/start' && message.text != '/stop'
-      # Provides stats according to the country if given a location.
-      message.text = message.text.to_s
-      reply(bot, message.chat.id, search(message.text))
+      if (message.text).include?('Company Summary')
+        comp = (message.text).split(' ').to_a[-1]
+        reply(bot, message.chat.id, search(comp))
+      elsif (message.text).include?('Financial Statement')
+        compa = (message.text).split(' ').to_a[-1]
+        reply(bot, message.chat.id, finance_first(compa))
+      else
+        reply(bot,
+          message.chat.id,
+            "Please type the STOCK symbol after 'Company Summary' or 'Financial Statements' to get the desired result.\nE.g., Company Summary TSLA,\nFinancial Statements MSFT,\netc.")
+        reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
+      end
     else
       reply(bot, message.chat.id, "I can't help you, please select from the following options:", main_menu)
     end
   end
 
-  # Connects with the Covid API Class
+  # Connects with the Financial API Class
   def search(commands)
     stats = KeyStats.new
     stats.get_information(commands)
   end
 
+  def finance_first(commands)
+    finance = FinStatus.new
+    finance.get_finance(commands)
+  end
+
+
   # Provides the user with the current options
   def main_menu
     kb = [
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Company Profile', url: 'https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en'),
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Financial Status',
-                                                     callback_data: 'location'),
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Select a Specific Country', callback_data: 'countries')
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Latest News', url: 'https://www.google.com/search?q=finance&output=search&tbm=nws&source=lnms&sa=X&ved=2ahUKEwjuvK_qoc7qAhUFLKwKHQRVBA4Q_AUoAXoECAcQCQ&biw=1366&bih=581&dpr=1')
     ]
     Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
-  end
-
-  # Prompts the user to provide its location
-  def inline_menu
-    kb = [
-      Telegram::Bot::Types::KeyboardButton.new(
-        text: 'Provide my Location',
-        request_location: true,
-        one_time_keyboard: true
-      )
-    ]
-    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb)
   end
 end

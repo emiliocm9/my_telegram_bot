@@ -27,6 +27,7 @@ class KeyStats
       http.request(request)
     end
 
-    response.body
+    ab = (response.body).tr('{}[]', '')
+    ab
   end
 end
