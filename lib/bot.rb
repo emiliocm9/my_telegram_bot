@@ -9,7 +9,7 @@ class Bot
   attr_reader :commands, :token, :uri
 
   def initialize
-    @token = '1311446527:AAH2ffDev6-BCNjIwanP0IrsWxtR45qztGc'
+    @token = '1075499722:AAHFsXOCXod9YEtiokU-bDJ2Q0SmQTS6egc'
     begin
       start_telegram_api
     rescue Telegram::Bot::Exceptions::ResponseError => e

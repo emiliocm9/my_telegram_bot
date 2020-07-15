@@ -29,6 +29,10 @@ class FinStatus
     x = (response.body).index('{')
     y = (response.body).index('}')
     a = response.body[x..y].tr('{}', '')
-    a
+    if a == " "
+      return 'Error: please type the STOCK symbol again.'
+    else
+      return a
+    end
   end
 end

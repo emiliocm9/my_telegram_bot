@@ -28,6 +28,10 @@ class KeyStats
     end
 
     ab = (response.body).tr('{}[]', '')
-    ab
+    if ab == " "
+      return 'Error: please type the STOCK symbol again.'
+    else
+      return ab
+    end
   end
 end
