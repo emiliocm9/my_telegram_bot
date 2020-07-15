@@ -81,8 +81,8 @@ class Bot
   # Provides the user with the current options
   def main_menu
     kb = [
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Breaking News-World', url: 'https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en'),
-      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Breaking News-My Location',
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Company Profile', url: 'https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en'),
+      Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Financial Status',
                                                      callback_data: 'location'),
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Select a Specific Country', callback_data: 'countries')
     ]
