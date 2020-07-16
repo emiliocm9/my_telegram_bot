@@ -14,7 +14,7 @@ class KeyStats
   end
 
   def get_information(symbol)
-    urilink = "https://financialmodelingprep.com/api/v3/profile/#{symbol}?apikey=991a6bc8a2bdcd65a5cbeb076b133b05"
+    urilink = "https://financialmodelingprep.com/api/v3/profile/#{symbol}?apikey=dcc02d221c83b6cce393d3b83d87059f"
     uri = URI.parse(urilink)
     request = Net::HTTP::Get.new(uri)
     request['Upgrade-Insecure-Requests'] = '1'

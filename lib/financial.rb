@@ -14,7 +14,7 @@ class FinStatus
   end
 
   def get_finance(symbol_fin)
-    apikey = 'apikey=991a6bc8a2bdcd65a5cbeb076b133b05'
+    apikey = 'apikey=dcc02d221c83b6cce393d3b83d87059f'
     urilink = "https://financialmodelingprep.com/api/v3/financials/income-statement/#{symbol_fin}?#{apikey}"
     uri_fin = URI.parse(urilink)
     request = Net::HTTP::Get.new(uri_fin)
