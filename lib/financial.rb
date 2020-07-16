@@ -4,8 +4,7 @@ require 'json'
 require 'uri'
 
 class FinStatus
-  attr_reader :uri_fin, :b_fin
-  attr_accessor :symbol_fin
+  attr_reader :uri_fin, :b_fin, :symbol_fin
 
   def initialize
     @b_fin = b_fin

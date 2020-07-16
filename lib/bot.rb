@@ -16,21 +16,18 @@ class Bot
     end
   end
 
-  # Replies messages to the user
   def reply(bot, chat_id, content, markup = nil)
     bot.api.send_message(chat_id: chat_id, text: content, reply_markup: markup)
   end
 
   private
 
-  # Starts the bot input.
   def start_telegram_api
     Telegram::Bot::Client.run(token) do |bot|
       listen(bot)
     end
   end
 
-  # Listens for user input
   def listen(bot)
     bot.listen do |message|
       case message
@@ -77,7 +74,6 @@ class Bot
     end
   end
 
-  # Connects with the Financial API Class
   def search(commands)
     stats = KeyStats.new
     stats.get_information(commands)
@@ -97,7 +93,6 @@ class Bot
     reply(bot, message.chat.id, 'If you want to read the latest news, select the button bellow.', main_menu)
   end
 
-  # Provides the user with the current options
   def main_menu
     kb = [
       Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Latest News', url: 'https://www.google.com/search?q=finance&output=search&tbm=nws&source=lnms&sa=X&ved=2ahUKEwjuvK_qoc7qAhUFLKwKHQRVBA4Q_AUoAXoECAcQCQ&biw=1366&bih=581&dpr=1')

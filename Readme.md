@@ -25,7 +25,8 @@ If you want to download the source code and be able to use its logic to create a
 ### Install
 
   -  Fork this project into your local machine.
-  -  Create a bot token and include it on a .env file. Save the variable as 'TOKEN'.
+  -  Create a bot token using the telegram BotFather [BotFather](https://t.me/BotFather).
+  -  Get the token and include it on a .env file. Save the variable as 'TOKEN'.
   -  Open your project directory on your terminal
   -  Install gems by running "bundle install" on your terminal
   -  Run 'ruby bin/main.rb' on your terminal.
@@ -37,7 +38,8 @@ If you want to download the source code and be able to use its logic to create a
 ### Start
   This command will give you the starting instructions. You just need to type 
   > /start
-  ![Start Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/Start%20Screenshot.png)
+
+  ![Start Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Images/Start%20Screenshot.png)
 
 ### 'Company Summary [symbol]'
 
@@ -45,7 +47,7 @@ If you want to download the source code and be able to use its logic to create a
   You just need to type 'Company Summary' before the Stock Symbol of the Company you want to search for. E.g., if want to get a Company Summary of Netflix, I should send the next message.
   > Company Summary NFLX
 
-  ![Company Summary Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/CompanySummaryScreenshot.png)
+  ![Company Summary Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Images/CompanySummaryScreenshot.png)
 
   This command will give you the next information.
    - Price
@@ -72,7 +74,7 @@ If you want to download the source code and be able to use its logic to create a
   You just need to type 'Financial Statements' before the Stock Symbol of the Company you want to search for. E.g., if want to get a Financial Statement of Tesla, I should send the next message.
   > Financial Statements TSLA
 
-  ![Financial Statements Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/ProjectSS/FinancialStatementsScreenshot.png)
+  ![Financial Statements Command](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Images/FinancialStatementsScreenshot.png)
 
   This command will give you the next information.
    - Filling Date
