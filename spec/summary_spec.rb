@@ -3,7 +3,7 @@ require_relative '../lib/summary.rb'
 describe KeyStats do
   let(:summary) { KeyStats.new }
 
-  describe '#get_finance' do
+  describe '#get_information' do
     let(:info_wrong) { summary.get_information('CREA') }
     let(:info_right) { summary.get_information('DIS') }
     it 'Will display an error message if the STOCK symbol does not exist.' do

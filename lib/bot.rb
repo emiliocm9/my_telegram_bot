@@ -1,7 +1,7 @@
 require 'telegram/bot'
 require 'geocoder'
 require 'open-uri'
-require_relative 'motive.rb'
+require_relative 'summary.rb'
 require_relative 'financial.rb'
 
 class Bot
@@ -20,7 +20,7 @@ class Bot
     bot.api.send_message(chat_id: chat_id, text: content, reply_markup: markup)
   end
 
-  private
+ # private
 
   def start_telegram_api
     Telegram::Bot::Client.run(token) do |bot|
