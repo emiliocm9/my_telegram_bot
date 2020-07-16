@@ -2,7 +2,7 @@
 ```
 Financial Modeling Prep is a new concept that informs you about stock markets information (news, currencies and stock prices). 
 ```
-This bot will provide the financial statements quarterly, and a company summary for every company in the stock market, using a the Telegram Application. Run the [Stock-Bot](https://t.me/Market_StockPrice_Bot)
+This bot will provide the financial statements quarterly, and a company summary for every company in the stock market, using the Telegram Application. Run the [Stock-Bot](https://t.me/Market_StockPrice_Bot)
 
 ## Table of Contents
 - [Getting Started](https://github.com/emiliocm9/my_telegram_bot/blob/financial_branch/Readme.md#getting-started)
