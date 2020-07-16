@@ -11,7 +11,7 @@ describe FinStatus do
     end
 
     it 'Returns a string including a financial statements' do
-      expect(p (symbol_right.include?('financials'))).to eql(true)
+      expect((p symbol_right).include?('financials')).to eql(true)
     end
   end
 end
